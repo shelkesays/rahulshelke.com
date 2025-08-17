@@ -863,6 +863,19 @@ nav.scrolled {
     box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
 }
 
+
+.contact-link svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor; /* Inherits the link's text color */
+    transition: fill 0.3s ease;
+}
+
+/* Optional: Add hover effect */
+.contact-link:hover svg {
+    fill: #cfdde6; /* LinkedIn blue on hover, adjust as needed */
+}
+
 /* =============================================
    FOOTER
    ============================================= */
