@@ -1,0 +1,42 @@
+# Robots.txt for https://rahulshelke.com/
+# Allow all search engines to crawl the site
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /tmp/
+Disallow: /*.pdf$
+Disallow: /api/
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /.env
+
+# Allow search engines to access CSS and JS files
+Allow: /*.css$
+Allow: /*.js$
+Allow: /images/
+Allow: /assets/
+
+# Specific rules for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 0
+
+# Block bad bots (optional - add known bad bots here)
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+# Sitemap location
+Sitemap: https://rahulshelke.com/sitemap.xml
