@@ -100,7 +100,7 @@ nav.scrolled {
     align-items: center;
 }
 
-.nav-container a#logo {
+.nav-container a:-webkit-any-link {
     text-decoration: none;
 }
 
