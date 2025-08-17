@@ -100,6 +100,10 @@ nav.scrolled {
     align-items: center;
 }
 
+.nav-container a#logo {
+    text-decoration: none;
+}
+
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
@@ -205,8 +209,8 @@ nav.scrolled {
 }
 
 /* Hero Typography */
-.hero h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
+.hero h1,
+.nav-container .logo {
     margin-bottom: 1rem;
     background: linear-gradient(135deg, #fff 0%, #6366f1 50%, #06b6d4 100%);
     -webkit-background-clip: text;
@@ -214,6 +218,10 @@ nav.scrolled {
     background-clip: text;
     animation: gradient 3s ease infinite;
     background-size: 200% 200%;
+}
+
+.hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
 }
 
 .tagline {

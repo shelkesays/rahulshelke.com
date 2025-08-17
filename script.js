@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // TYPING EFFECT FOR HERO TITLE
     // =============================================
     function setupTypingEffect() {
-        const heroTitle = document.querySelector('.hero h1');
+        const heroTitle = document.querySelector('.nav-container .logo');
         if (!heroTitle) return;
         
         const text = heroTitle.textContent;
