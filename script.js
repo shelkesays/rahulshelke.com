@@ -4,15 +4,15 @@
  */
 
 // Wait for DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', function() {
-    
+document.addEventListener('DOMContentLoaded', function () {
+
     // =============================================
     // PARTICLE SYSTEM
     // =============================================
     function createParticles() {
         const particlesContainer = document.getElementById('particles');
         const particleCount = 50;
-        
+
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
@@ -22,13 +22,13 @@ document.addEventListener('DOMContentLoaded', function() {
             particlesContainer.appendChild(particle);
         }
     }
-    
+
     // =============================================
     // NAVBAR SCROLL EFFECT
     // =============================================
     function handleNavbarScroll() {
         const navbar = document.getElementById('navbar');
-        
+
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
+
     // =============================================
     // SMOOTH SCROLLING
     // =============================================
@@ -47,21 +47,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
                 const target = document.querySelector(targetId);
-                
+
                 if (target) {
                     const offsetTop = target.offsetTop - 80; // Account for navbar height
                     window.scrollTo({
                         top: offsetTop,
                         behavior: 'smooth'
                     });
-                    
+
                     // Update active nav link
                     updateActiveNavLink(targetId);
                 }
             });
         });
     }
-    
+
     // =============================================
     // UPDATE ACTIVE NAV LINK
     // =============================================
@@ -70,14 +70,14 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.classList.remove('active');
         });
-        
+
         // Add active class to current link
         const activeLink = document.querySelector(`.nav-links a[href="${targetId}"]`);
         if (activeLink) {
             activeLink.classList.add('active');
         }
     }
-    
+
     // =============================================
     // INTERSECTION OBSERVER FOR ANIMATIONS
     // =============================================
@@ -86,12 +86,12 @@ document.addEventListener('DOMContentLoaded', function() {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         };
-        
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    
+
                     // Trigger counter animation for stats
                     if (entry.target.classList.contains('stat-card')) {
                         animateStatCounter(entry.target);
@@ -99,24 +99,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }, observerOptions);
-        
+
         // Observe all fade-in elements
         document.querySelectorAll('.fade-in').forEach(el => {
             observer.observe(el);
         });
     }
-    
+
     // =============================================
     // TYPING EFFECT FOR HERO TITLE
     // =============================================
     function setupTypingEffect() {
         const heroTitle = document.querySelector('.nav-container .logo');
         if (!heroTitle) return;
-        
+
         const text = heroTitle.textContent;
         heroTitle.textContent = '';
         let index = 0;
-        
+
         function typeWriter() {
             if (index < text.length) {
                 heroTitle.textContent += text.charAt(index);
@@ -124,81 +124,81 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(typeWriter, 100);
             }
         }
-        
+
         // Start typing after a short delay
         setTimeout(typeWriter, 500);
     }
-    
+
     // =============================================
     // ANIMATE STAT COUNTERS
     // =============================================
     function animateStatCounter(element) {
         // Check if already animated
         if (element.dataset.animated === 'true') return;
-        
+
         const statNumber = element.querySelector('.stat-number');
         if (!statNumber) return;
-        
+
         const text = statNumber.textContent;
         const isPercentage = text.includes('%');
         const hasPlus = text.includes('+');
         const targetNumber = parseInt(text.replace(/[^0-9]/g, ''));
-        
+
         let currentNumber = 0;
         const increment = Math.ceil(targetNumber / 30);
         const duration = 2000; // 2 seconds
         const stepTime = duration / (targetNumber / increment);
-        
+
         const counter = setInterval(() => {
             currentNumber += increment;
-            
+
             if (currentNumber >= targetNumber) {
                 currentNumber = targetNumber;
                 clearInterval(counter);
                 element.dataset.animated = 'true';
             }
-            
+
             let displayText = currentNumber;
             if (hasPlus) displayText += '+';
             if (isPercentage) displayText += '%';
-            
+
             statNumber.textContent = displayText;
         }, stepTime);
     }
-    
+
     // =============================================
     // SKILL TAG HOVER EFFECTS
     // =============================================
     function setupSkillTagEffects() {
         document.querySelectorAll('.skill-tag').forEach(tag => {
-            tag.addEventListener('mouseenter', function() {
+            tag.addEventListener('mouseenter', function () {
                 this.style.transform = 'scale(1.05) translateY(-2px)';
             });
-            
-            tag.addEventListener('mouseleave', function() {
+
+            tag.addEventListener('mouseleave', function () {
                 this.style.transform = 'scale(1) translateY(0)';
             });
         });
     }
-    
+
     // =============================================
     // SECTION VISIBILITY TRACKER
     // =============================================
     function setupSectionTracker() {
         const sections = document.querySelectorAll('section[id]');
-        
+
         window.addEventListener('scroll', () => {
             let current = '';
-            
+
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
-                
+
                 if (window.scrollY >= (sectionTop - 200)) {
                     current = section.getAttribute('id');
                 }
             });
-            
+
             // Update nav links based on current section
             document.querySelectorAll('.nav-links a').forEach(link => {
                 link.classList.remove('active');
@@ -208,25 +208,45 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-    
+
     // =============================================
-    // MOBILE MENU TOGGLE (Future Enhancement)
+    // MOBILE MENU TOGGLE
     // =============================================
     function setupMobileMenu() {
-        // Placeholder for mobile menu functionality
-        // Can be implemented when adding a hamburger menu
+        const menuToggle = document.getElementById('mobile-menu');
         const navLinks = document.querySelector('.nav-links');
-        if (window.innerWidth <= 768) {
-            // Mobile menu logic here
+        const links = document.querySelectorAll('.nav-links a');
+
+        if (menuToggle && navLinks) {
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                menuToggle.classList.toggle('active');
+            });
+
+            // Close menu when a link is clicked
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!navLinks.contains(e.target) && !menuToggle.contains(e.target) && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                }
+            });
         }
     }
-    
+
     // =============================================
     // LAZY LOADING FOR IMAGES
     // =============================================
     function setupLazyLoading() {
         const images = document.querySelectorAll('img[data-src]');
-        
+
         const imageObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -237,16 +257,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
-        
+
         images.forEach(img => imageObserver.observe(img));
     }
-    
+
     // =============================================
     // COPY TO CLIPBOARD FOR CONTACT INFO
     // =============================================
     function setupCopyToClipboard() {
         document.querySelectorAll('.contact-link').forEach(link => {
-            link.addEventListener('click', function(e) {
+            link.addEventListener('click', function (e) {
                 // Only for non-link items (future enhancement)
                 if (this.dataset.copy) {
                     e.preventDefault();
@@ -258,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-    
+
     // =============================================
     // SHOW NOTIFICATION
     // =============================================
@@ -278,9 +298,9 @@ document.addEventListener('DOMContentLoaded', function() {
             z-index: 9999;
             animation: slideIn 0.3s ease;
         `;
-        
+
         document.body.appendChild(notification);
-        
+
         setTimeout(() => {
             notification.style.animation = 'slideOut 0.3s ease';
             setTimeout(() => {
@@ -288,23 +308,23 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 300);
         }, 3000);
     }
-    
+
     // =============================================
     // HANDLE RESIZE EVENTS
     // =============================================
     function handleResize() {
         let resizeTimer;
-        
+
         window.addEventListener('resize', () => {
             document.body.classList.add('resize-animation-stopper');
             clearTimeout(resizeTimer);
-            
+
             resizeTimer = setTimeout(() => {
                 document.body.classList.remove('resize-animation-stopper');
             }, 400);
         });
     }
-    
+
     // =============================================
     // PRELOADER (Optional)
     // =============================================
@@ -319,7 +339,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 1000);
         }
     }
-    
+
     // =============================================
     // INITIALIZE ALL FUNCTIONS
     // =============================================
@@ -336,11 +356,11 @@ document.addEventListener('DOMContentLoaded', function() {
         setupCopyToClipboard();
         handleResize();
         hidePreloader();
-        
+
         // Log successful initialization
         console.log('Portfolio website initialized successfully!');
     }
-    
+
     // Initialize everything
     init();
 });
@@ -369,7 +389,7 @@ function debounce(func, wait) {
  */
 function throttle(func, limit) {
     let inThrottle;
-    return function(...args) {
+    return function (...args) {
         if (!inThrottle) {
             func.apply(this, args);
             inThrottle = true;
@@ -437,9 +457,9 @@ window.addEventListener('error', (e) => {
 // =============================================
 // CONSOLE MESSAGE
 // =============================================
-console.log('%c Welcome to Rahul Shelke\'s Portfolio! ', 
+console.log('%c Welcome to Rahul Shelke\'s Portfolio! ',
     'background: linear-gradient(135deg, #6366f1, #06b6d4); color: white; font-size: 20px; padding: 10px;');
-console.log('%c 🚀 Engineered with passion and 100% caffeine-fueled! ', 
+console.log('%c 🚀 Engineered with passion and 100% caffeine-fueled! ',
     'color: #6366f1; font-size: 14px;');
-console.log('%c 📧 Let\'s connect: https://rahulshelke.com ', 
+console.log('%c 📧 Let\'s connect: https://rahulshelke.com ',
     'color: #06b6d4; font-size: 12px;');
